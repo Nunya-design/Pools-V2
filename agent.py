@@ -52,7 +52,7 @@ class Assistant(Agent):
             "Use short and concise responses, avoiding unpronounceable punctuation.",
             stt=deepgram.STT(),
             llm=openai.LLM(model="gpt-4o-mini"),
-            tts=openai.TTS(),  # Using OpenAI TTS instead of Cartesia
+            tts=cartesia.TTS(voice="79a125e8-cd45-4c13-8a67-188112f4dd22"),  # Cartesia female voice
             # use LiveKit's transformer-based turn detector
             turn_detection=turn_detection,
         )
