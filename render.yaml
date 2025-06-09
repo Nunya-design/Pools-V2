@@ -2,13 +2,10 @@ services:
   - type: web
     name: livekit-agent
     runtime: docker
-    plan: starter
+    plan: standard  # Upgraded from starter for better performance
     dockerfilePath: ./Dockerfile
     dockerContext: .
     autoDeploy: true
-    
-    # Health check configuration
-    healthCheckPath: /
     
     # Resource configuration
     disk:
@@ -30,13 +27,17 @@ services:
         sync: false
       - key: DEEPGRAM_API_KEY
         sync: false
+      - key: PYTHONUNBUFFERED
+        value: "1"
+      - key: PYTHONDONTWRITEBYTECODE
+        value: "1"
     
     # Scaling configuration
     scaling:
       minInstances: 1
-      maxInstances: 10
-      targetCPUPercent: 75
-      targetMemoryPercent: 75
+      maxInstances: 5
+      targetCPUPercent: 70
+      targetMemoryPercent: 70
     
     # Grace period for proper shutdown
     gracefulShutdownPeriodSeconds: 600 
