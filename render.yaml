@@ -1,0 +1,42 @@
+services:
+  - type: web
+    name: livekit-agent
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    autoDeploy: true
+    
+    # Health check configuration
+    healthCheckPath: /
+    
+    # Resource configuration
+    disk:
+      name: agent-disk
+      mountPath: /data
+      sizeGB: 10
+    
+    # Environment variables
+    envVars:
+      - key: LIVEKIT_URL
+        sync: false
+      - key: LIVEKIT_API_KEY
+        sync: false
+      - key: LIVEKIT_API_SECRET
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: CARTESIA_API_KEY
+        sync: false
+      - key: DEEPGRAM_API_KEY
+        sync: false
+    
+    # Scaling configuration
+    scaling:
+      minInstances: 1
+      maxInstances: 10
+      targetCPUPercent: 75
+      targetMemoryPercent: 75
+    
+    # Grace period for proper shutdown
+    gracefulShutdownPeriodSeconds: 600 

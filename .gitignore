@@ -1,0 +1,11 @@
+.env.local
+.venv/
+venv/
+.DS_Store
+
+# Docker
+.dockerignore
+*.log
+
+# Render
+.render-buildpacks-cache/
