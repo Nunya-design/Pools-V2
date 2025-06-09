@@ -19,7 +19,7 @@ from livekit.plugins import (
     noise_cancellation,
     silero,
 )
-from livekit.plugins.turn_detector.multilingual import MultilingualModel
+# Import removed - we'll use simpler turn detection
 
 
 load_dotenv(dotenv_path=".env.local")
@@ -32,6 +32,11 @@ class Assistant(Agent):
         # Other great providers exist like Cerebras, ElevenLabs, Groq, Play.ht, Rime, and more
         # Learn more and pick the best one for your app:
         # https://docs.livekit.io/agents/plugins
+        
+        # Use simpler turn detection that doesn't require model downloads
+        # The agent will use VAD-based turn detection which is more reliable in production
+        turn_detection = None
+        
         super().__init__(
             instructions="You are a voice assistant created by LiveKit. Your interface with users will be voice. "
             "You should use short and concise responses, and avoiding usage of unpronouncable punctuation. "
@@ -40,7 +45,7 @@ class Assistant(Agent):
             llm=openai.LLM(model="gpt-4o-mini"),
             tts=cartesia.TTS(),
             # use LiveKit's transformer-based turn detector
-            turn_detection=MultilingualModel(),
+            turn_detection=turn_detection,
         )
 
     async def on_enter(self):

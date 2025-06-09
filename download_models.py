@@ -8,16 +8,9 @@ import os
 import sys
 
 def download_turn_detector():
-    """Download the turn detector model."""
-    try:
-        from livekit.plugins.turn_detector.multilingual import MultilingualModel
-        print("Downloading turn detector model...")
-        model = MultilingualModel()
-        print("✅ Turn detector model downloaded successfully")
-        return True
-    except Exception as e:
-        print(f"❌ Error downloading turn detector model: {e}")
-        return False
+    """Skip turn detector download."""
+    print("⏭️  Turn detector disabled for production deployment (VAD-based detection will be used)")
+    return True
 
 def download_silero_vad():
     """Download the Silero VAD model."""
